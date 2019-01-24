@@ -1,4 +1,4 @@
-# bath-monitoring
+# Fridge-monitoring
 
 ## Project setup
 ```
