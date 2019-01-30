@@ -1,6 +1,6 @@
 {
-  "name": "bath-monitoring",
-  "short_name": "bath-monitoring",
+  "name": "fridge-monitoring",
+  "short_name": "fridge-monitoring",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

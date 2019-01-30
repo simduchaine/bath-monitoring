@@ -1,29 +1,55 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <header-bar></header-bar>
+    <sidebar></sidebar>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import sidebar from "@/components/sidebar.vue";
+import headerBar from "@/components/header.vue";
+
+export default {
+  components: {
+    sidebar,
+    headerBar
   }
 }
+</script>
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Chivo|Passion+One');
+
+#app {
+  font-family: $font;
+  font-size: 15px;
+  color: $purpleGray;
+  background: linear-gradient(124.19deg, #535468 0%, #292935 100%);
+  box-shadow: 60px 60px 130px rgba(71, 71, 89, 0.8);
+  border-radius: 15px;
+  width: 80%;
+  height: 95%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 25% auto;
+  grid-template-rows: 10% auto;
+  grid-template-areas: 
+    "header header"
+    "sidebar main";
+}
+
+h1 {
+  font-family: $heading;
+  color: $white;
+  font-size: 38px;
+  letter-spacing: 1px;
+  font-weight: normal;
+  
+}
+
+a {
+  text-decoration: none;
+}
+
 </style>
