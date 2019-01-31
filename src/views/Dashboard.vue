@@ -1,12 +1,22 @@
 <template>
   <div id="dashboard">
     <line-chart title="Humidity, Temperature"></line-chart>
-    <current-temp title="Current Temperature"></current-temp>
-    <current-humidity title="Current Humidity"></current-humidity>
+    <current-temp title="Current Temperature" :data="tempData" :setPoint="tempSetPoint"></current-temp>
+    <current-humidity title="Current Humidity" :data="humidData"></current-humidity>
   </div>
 </template>
 
 <script>
+import Firebase from "firebase";
+// firebase.js is the file containing the API KEY
+//and database url and all the private config
+//-- See https://firebase.google.com/docs/web/setup
+import config from "../firebase";
+
+const app = Firebase.initializeApp(config);
+const database = app.database();
+const arduinoData = database.ref("arduinoData");
+
 import currentTemp from "@/components/currentTemp.vue";
 import currentHumidity from "@/components/currentHumidity.vue";
 import lineChart from "@/components/lineChart.vue";
@@ -17,6 +27,20 @@ export default {
     currentTemp,
     currentHumidity,
     lineChart
+  },
+  data() {
+    return {
+      tempData: "0",
+      tempSetPoint: "0",
+      humidData: "0"
+    }
+  },
+  created() {
+    arduinoData.on('value', (snapshot) => {
+      this.tempData = snapshot.child("actualTemp").val();
+      this.humidData = snapshot.child("actualHumidity").val();
+      this.tempSetPoint = snapshot.child("tempSetpoint").val();
+    })
   }
 };
 </script>

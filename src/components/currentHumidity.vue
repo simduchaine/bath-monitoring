@@ -1,7 +1,7 @@
 <template>
     <div id="currentHumidity" class="card">
         <span class="cardTitle">{{ title }}</span>
-        <div class="actualData">{{ actualData }}%</div>
+        <div class="actualData">{{ data }}%</div>
         <circle-slider 
                 v-model="sliderValue"
                 class="circle-slider" 
@@ -13,18 +13,17 @@
                 knob-color="#C4C4C4" 
                 progress-color="#8864CE">
             </circle-slider>
-        {{ sliderValue }}
+        <span>Set Point: {{ sliderValue }}%</span>
     </div>
 </template>
 
 <script>
 export default {
     name: "currentHumidity",
-    props: ['title'],
+    props: ["title", "data"],
     data() {
         return {
-            sliderValue: 0,
-            actualData: 0
+            sliderValue: 0
         }
     }
 

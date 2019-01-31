@@ -1,10 +1,10 @@
 <template>
     <div id="currentTemp" class="card">
         <span class="cardTitle">{{ title }}</span>
-        <div class="actualData">{{ actualData }}°C</div>
+        <div class="actualData">{{ data }}°C</div>
         <circle-slider 
             class="circle-slider" 
-            v-model="sliderValue" 
+            v-model="setPoint" 
             min="0"
             max="35"
             side="250"
@@ -15,21 +15,19 @@
             knob-color="#C4C4C4" 
             progress-color="#3B81BC">
         </circle-slider>
-        {{ sliderValue }}
+        <span>Set Point: {{ setPoint }}°C</span>
     </div>
 </template>
 
 <script>
 export default {
     name: "currentTemp",
-    props: ['title'],
+    props: ["title", "data", "setPoint" ],
     data() {
         return {
-            sliderValue: 0,
-            actualData: 0
+            sliderValue: 0
         }
     }
-
 }
 </script>
 
