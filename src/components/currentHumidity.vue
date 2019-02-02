@@ -1,29 +1,41 @@
 <template>
     <div id="currentHumidity" class="card">
-        <span class="cardTitle">{{ title }}</span>
+        <span class="cardTitle">{{ title }} <font-awesome-icon icon="thermometer-half" class="icon" /></span>
         <div class="actualData">{{ data }}%</div>
         <circle-slider 
                 v-model="sliderValue"
                 class="circle-slider" 
-                side="250"  
-                circle-width="5" 
-                progress-width="6" 
-                knob-radius="10"
+                :side=215 
+                :circle-width=5
+                :progress-width=6 
+                :knob-radius=10
                 circle-color="#FE6D84" 
                 knob-color="#C4C4C4" 
                 progress-color="#8864CE">
             </circle-slider>
-        <span>Set Point: {{ sliderValue }}%</span>
+        <div class="setPoint">
+            <button @click="setValue()">Set to {{ sliderValue }}%</button>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: "currentHumidity",
-    props: ["title", "data"],
+    props: ["title", "data", "setPoint"],
     data() {
         return {
-            sliderValue: 0
+            sliderValue: this.setPoint
+        }
+    },
+    watch: {
+        setPoint: function (newVal) {
+            this.sliderValue = newVal;
+        }
+    },
+    methods: {
+        setValue() {
+            this.$emit("setvalue", this.sliderValue);
         }
     }
 
@@ -35,7 +47,8 @@ export default {
     #currentHumidity {
         grid-area: third;
 
-        .actualData {
+        .actualData,
+        .icon {
             color: $purple;
         }
     }

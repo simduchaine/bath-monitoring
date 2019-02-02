@@ -1,8 +1,9 @@
 <template>
   <div id="dashboard">
-    <line-chart title="Humidity, Temperature"></line-chart>
-    <current-temp title="Current Temperature" :data="tempData" :setPoint="tempSetPoint"></current-temp>
-    <current-humidity title="Current Humidity" :data="humidData"></current-humidity>
+    <graph title="Humidity, Temperature"></graph>
+    <current-temp title="Current Temperature" :data="tempData" :setPoint="getTempSetPoint" @setvalue="SetTempValue"></current-temp>
+    <current-humidity title="Current Humidity" :data="humidData" :setPoint="getHumidSetPoint" @setvalue="SetHumidValue"></current-humidity>
+    <flash-message class="flash-message"></flash-message>
   </div>
 </template>
 
@@ -15,32 +16,64 @@ import config from "../firebase";
 
 const app = Firebase.initializeApp(config);
 const database = app.database();
-const arduinoData = database.ref("arduinoData");
+const dbData = database.ref();
 
 import currentTemp from "@/components/currentTemp.vue";
 import currentHumidity from "@/components/currentHumidity.vue";
-import lineChart from "@/components/lineChart.vue";
+import graph from "@/components/graph.vue";
+
+require('vue-flash-message/dist/vue-flash-message.min.css');
 
 export default {
   name: "dashboard",
   components: {
     currentTemp,
     currentHumidity,
-    lineChart
+    graph
   },
   data() {
     return {
       tempData: "0",
-      tempSetPoint: "0",
+      getTempSetPoint: 0,
+      getHumidSetPoint: 0,
       humidData: "0"
     }
   },
   created() {
-    arduinoData.on('value', (snapshot) => {
-      this.tempData = snapshot.child("actualTemp").val();
-      this.humidData = snapshot.child("actualHumidity").val();
-      this.tempSetPoint = snapshot.child("tempSetpoint").val();
+    dbData.on('value', (snapshot) => {
+      this.tempData = snapshot.child("arduinoData/actualTemp").val();
+      this.humidData = snapshot.child("arduinoData/actualHumidity").val();
+      this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
+      this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
     })
+  },
+  methods: {
+    SetTempValue(value) {
+      dbData.child("AppData/setTemp").set(value, error => {
+        if (error) {
+          // The write failed...
+          this.flash('Setting Temperature Failed!', 'error');
+        } else {
+          // Data saved successfully!
+          this.flash('Temperature correctly set!', 'success', {
+            timeout: 2000
+          });
+        }
+      });
+    },
+    SetHumidValue(value) {
+      dbData.child("AppData/setHumidity").set(value, error => {
+        if (error) {
+          // The write failed...
+          this.flash('Setting Humidity Failed!', 'error');
+        } else {
+          // Data saved successfully!
+          this.flash('Humidity correctly set!', 'success', {
+            timeout: 2000
+          });
+        }
+      });
+    }
   }
 };
 </script>
@@ -48,22 +81,23 @@ export default {
 <style lang="scss">
 #dashboard {
   display: grid;
-  grid-template-rows: 52% auto;
+  grid-template-rows: 51% auto;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "first first"
     "second third";
-  grid-row-gap: 1.5em;
+  grid-row-gap: 1.2em;
   grid-column-gap: 1.5em;
   width: 85%;
-  padding: 0 0 3em;
+  padding: 0 0 2.5em;
 }
 
 .card {
   background-color: $darkPurple;
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   position: relative;
 }
@@ -73,13 +107,43 @@ export default {
   padding: 1.5em 0 0 1.5em;
 }
 
-.actualData {
+.actualData,
+.circle-slider {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 46px;
+}
+
+.icon {
+  padding-left: 0.3em;
+}
+
+.setPoint {
+  display: block;
+  width: 100%;
+  align-self: flex-end;
+  text-align: center;
+  margin: 0 auto 1.5em;
+}
+
+button {
+  background-color: #535468;
+  color: $white;
+
+  &:hover {
+    background-color: $purpleGray;
+  }
+}
+
+.flash-message {
+  position: absolute;
+  bottom: 5%;
+  left: 30%;
+  width: 51%;
+  text-align: center;
 }
 
 

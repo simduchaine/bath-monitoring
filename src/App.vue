@@ -52,4 +52,18 @@ a {
   text-decoration: none;
 }
 
+button {
+  color: $purpleGray;
+  background-color: $darkPurple;
+  padding: 0.8em 1.2em;
+  text-transform: uppercase;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 </style>

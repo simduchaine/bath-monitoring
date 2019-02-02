@@ -7,16 +7,26 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faChartPie,
   faCalendarTimes,
-  faCogs
+  faCogs,
+  faSnowflake,
+  faThermometerHalf
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueCircleSlider from "vue-circle-slider";
+import VueFlashMessage from "vue-flash-message";
 
-library.add(faChartPie, faCalendarTimes, faCogs);
+library.add(
+  faChartPie,
+  faCalendarTimes,
+  faCogs,
+  faSnowflake,
+  faThermometerHalf
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.use(VueCircleSlider);
+Vue.use(VueFlashMessage);
 
 Vue.config.productionTip = false;
 

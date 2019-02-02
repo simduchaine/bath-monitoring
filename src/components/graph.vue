@@ -1,15 +1,19 @@
 <template>
-    <div id="lineChart" class="card">
+    <div id="graph" class="card">
         <span class="cardTitle">{{ title }}</span>
+        <chart style="height:80%; width: 95%; padding: 1em;"></chart>
     </div>
 </template>
 
 <script>
-
+import chart from "./linechart.js";
 
 export default {
     name: "lineChart",
     props: ['title'],
+    components: {
+        chart
+    },
     data() {
         return {
             sliderValue: 0
@@ -20,8 +24,9 @@ export default {
 
 <style lang="scss">
 
-    #lineChart {
+    #graph {
         grid-area: first;
+        flex-flow: column;
     }
     
 </style>
