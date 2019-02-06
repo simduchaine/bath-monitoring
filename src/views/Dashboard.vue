@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <graph title="Humidity, Temperature"></graph>
+    <graph title="Humidity, Temperature" :data="dataOverTime"></graph>
     <current-temp title="Current Temperature" :data="tempData" :setPoint="getTempSetPoint" @setvalue="SetTempValue"></current-temp>
     <current-humidity title="Current Humidity" :data="humidData" :setPoint="getHumidSetPoint" @setvalue="SetHumidValue"></current-humidity>
     <flash-message class="flash-message"></flash-message>
@@ -36,7 +36,8 @@ export default {
       tempData: "0",
       getTempSetPoint: 0,
       getHumidSetPoint: 0,
-      humidData: "0"
+      humidData: "0",
+      dataOverTime: []
     }
   },
   created() {
@@ -45,6 +46,7 @@ export default {
       this.humidData = snapshot.child("arduinoData/actualHumidity").val();
       this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
+      this.dataOverTime = snapshot.child("dataOverTime").val();
     })
   },
   methods: {

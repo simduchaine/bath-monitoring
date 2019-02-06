@@ -6,7 +6,16 @@ Chart.defaults.global.defaultFontFamily = "Chivo";
 
 export default {
   extends: Line,
+  props: ["data"],
+  data() {
+    return {
+      HumidityDataSet: []
+    }
+  },
   mounted() {
+    this.data.messages.forEach(function(message){
+      console.log(message)
+    });
     this.renderChart(
       {
         labels: [
@@ -24,7 +33,7 @@ export default {
             borderColor: "#8864CE",
             backgroundColor: "#8864CE",
             fill: false,
-            data: [40, 39, 10, 40, 39, 80, 40],
+            data: this.HumidityDataSet,
             yAxisID: "y1"
           },
           {
