@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <graph title="Humidity, Temperature" :labels="labels" :tempArray="tempArray" :humidArray="humidArray" ></graph>
+    <graph title="Humidity, Temperature" :labels="labels" :tempArray="tempArray" :humidArray="humidArray" :loaded="loaded"></graph>
     <current-temp title="Current Temperature" :data="tempData" :setPoint="getTempSetPoint" @setvalue="SetTempValue"></current-temp>
     <current-humidity title="Current Humidity" :data="humidData" :setPoint="getHumidSetPoint" @setvalue="SetHumidValue"></current-humidity>
     <flash-message class="flash-message"></flash-message>
@@ -34,13 +34,14 @@ export default {
   },
   data() {
     return {
-      tempData: "0",
+      tempData: 0,
       getTempSetPoint: 0,
       getHumidSetPoint: 0,
-      humidData: "0",
+      humidData: 0,
       labels: [],
       tempArray: [],
-      humidArray: []
+      humidArray: [],
+      loaded: false
     }
   },
   created() {
@@ -51,19 +52,21 @@ export default {
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
     });
     let query = database.ref("dataOverTime").orderByKey();
-    query.on("value", (snapshot) => {
+    query.once("value", (snapshot) => {
         snapshot.forEach(childSnapshot => {
           let dataOverTime = childSnapshot.val();
           let date = moment(dataOverTime.timestamp).format('L');
           this.labels.push(date);
           this.tempArray.push(dataOverTime.Temp);
           this.humidArray.push(dataOverTime.Humidity);
+          this.loaded = true;
         })
-      })
+      }); 
+      //query.on("child_added", (data) => { })
   },
   methods: {
     SetTempValue(value) {
-      dbData.child("AppData/setTemp").set(value, error => {
+      dbData.child("arduinoData/tempSetpoint").set(value, error => {
         if (error) {
           // The write failed...
           this.flash('Setting Temperature Failed!', 'error');
@@ -76,7 +79,7 @@ export default {
       });
     },
     SetHumidValue(value) {
-      dbData.child("AppData/setHumidity").set(value, error => {
+      dbData.child("arduinoData/humiditySetpoint").set(value, error => {
         if (error) {
           // The write failed...
           this.flash('Setting Humidity Failed!', 'error');
