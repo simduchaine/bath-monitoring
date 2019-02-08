@@ -6,34 +6,18 @@ Chart.defaults.global.defaultFontFamily = "Chivo";
 
 export default {
   extends: Line,
-  props: ["data"],
-  data() {
-    return {
-      HumidityDataSet: []
-    }
-  },
+  props: ["labels", "tempArray", "humidArray"],
   mounted() {
-    this.data.messages.forEach(function(message){
-      console.log(message)
-    });
     this.renderChart(
       {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
-        ],
+        labels: this.labels,
         datasets: [
           {
             label: "Humidity %",
             borderColor: "#8864CE",
             backgroundColor: "#8864CE",
             fill: false,
-            data: this.HumidityDataSet,
+            data: this.humidArray,
             yAxisID: "y1"
           },
           {
@@ -41,7 +25,7 @@ export default {
             borderColor: "#3B81BC",
             backgroundColor: "#3B81BC",
             fill: false,
-            data: [60, 55, 32, 10, 2, 12, 53],
+            data: this.tempArray,
             yAxisID: "y2"
           }
         ]

@@ -1,7 +1,7 @@
 <template>
     <div id="graph" class="card">
         <span class="cardTitle">{{ title }}</span>
-        <chart style="height:80%; width: 95%; padding: 1em;" :data="data"></chart>
+        <chart style="height:80%; width: 95%; padding: 1em;" :labels="labels" :tempArray="tempArray" :humidArray="humidArray"></chart>
     </div>
 </template>
 
@@ -10,7 +10,7 @@ import chart from "./linechart.js";
 
 export default {
     name: "lineChart",
-    props: ['title', 'data'],
+    props: ['title', 'labels', 'tempArray', 'humidArray'],
     components: {
         chart
     },

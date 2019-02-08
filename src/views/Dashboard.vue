@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <graph title="Humidity, Temperature" :data="dataOverTime"></graph>
+    <graph title="Humidity, Temperature" :labels="labels" :tempArray="tempArray" :humidArray="humidArray" ></graph>
     <current-temp title="Current Temperature" :data="tempData" :setPoint="getTempSetPoint" @setvalue="SetTempValue"></current-temp>
     <current-humidity title="Current Humidity" :data="humidData" :setPoint="getHumidSetPoint" @setvalue="SetHumidValue"></current-humidity>
     <flash-message class="flash-message"></flash-message>
@@ -13,6 +13,7 @@ import Firebase from "firebase";
 //and database url and all the private config
 //-- See https://firebase.google.com/docs/web/setup
 import config from "../firebase";
+import moment from "moment";
 
 const app = Firebase.initializeApp(config);
 const database = app.database();
@@ -37,7 +38,9 @@ export default {
       getTempSetPoint: 0,
       getHumidSetPoint: 0,
       humidData: "0",
-      dataOverTime: []
+      labels: [],
+      tempArray: [],
+      humidArray: []
     }
   },
   created() {
@@ -46,8 +49,17 @@ export default {
       this.humidData = snapshot.child("arduinoData/actualHumidity").val();
       this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
-      this.dataOverTime = snapshot.child("dataOverTime").val();
-    })
+    });
+    let query = database.ref("dataOverTime").orderByKey();
+    query.on("value", (snapshot) => {
+        snapshot.forEach(childSnapshot => {
+          let dataOverTime = childSnapshot.val();
+          let date = moment(dataOverTime.timestamp).format('L');
+          this.labels.push(date);
+          this.tempArray.push(dataOverTime.Temp);
+          this.humidArray.push(dataOverTime.Humidity);
+        })
+      })
   },
   methods: {
     SetTempValue(value) {
