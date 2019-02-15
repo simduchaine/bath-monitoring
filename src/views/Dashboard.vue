@@ -50,19 +50,14 @@ export default {
       this.humidData = snapshot.child("arduinoData/actualHumidity").val();
       this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
-    });
-    let query = database.ref("dataOverTime").orderByKey();
-    query.once("value", (snapshot) => {
-        snapshot.forEach(childSnapshot => {
-          let dataOverTime = childSnapshot.val();
-          let date = moment(dataOverTime.timestamp).format('L');
-          this.labels.push(date);
-          this.tempArray.push(dataOverTime.Temp);
-          this.humidArray.push(dataOverTime.Humidity);
-          this.loaded = true;
-        })
-      }); 
-      //query.on("child_added", (data) => { })
+    }); 
+    database.ref("dataOverTime").on("child_added", (data) => {
+      let date = moment(data.val().timestamp).format('L');
+      this.labels.push(date);
+      this.tempArray.push(data.val().Temp);
+      this.humidArray.push(data.val().Humidity);
+      this.loaded = true;
+    })
   },
   methods: {
     SetTempValue(value) {
