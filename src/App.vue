@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <header-bar></header-bar>
-    <sidebar></sidebar>
+    <router-view name="header"/>
+    <router-view name="sidebar"/>
     <router-view/>
   </div>
 </template>
@@ -20,6 +20,10 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Chivo|Passion+One');
+
+%active-hover-color {
+    color: $white;
+}
 
 #app {
   font-family: $font;
@@ -52,9 +56,27 @@ a {
   text-decoration: none;
 }
 
-button {
+.router-link-exact-active {
+    a {
+        @extend %active-hover-color;
+    }
+}
+
+a {
   color: $purpleGray;
-  background-color: $darkPurple;
+
+  .icon {
+      padding-right: 0.5em;
+  }
+
+  &:hover {
+      @extend %active-hover-color;
+  }
+}
+
+button {
+  //color: $purpleGray;
+  //background-color: $darkPurple;
   padding: 0.8em 1.2em;
   text-transform: uppercase;
   border: none;

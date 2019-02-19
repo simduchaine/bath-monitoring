@@ -8,16 +8,8 @@
 </template>
 
 <script>
-import Firebase from "firebase";
-// firebase.js is the file containing the API KEY
-//and database url and all the private config
-//-- See https://firebase.google.com/docs/web/setup
-import config from "../firebase";
 import moment from "moment";
-
-const app = Firebase.initializeApp(config);
-const database = app.database();
-const dbData = database.ref();
+import { dbData } from "../main.js"
 
 import currentTemp from "@/components/currentTemp.vue";
 import currentHumidity from "@/components/currentHumidity.vue";
@@ -51,7 +43,7 @@ export default {
       this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
     }); 
-    database.ref("dataOverTime").on("child_added", (data) => {
+    dbData.child("dataOverTime").on("child_added", (data) => { //database.ref("dataOverTime")
       let date = moment(data.val().timestamp).format('L');
       this.labels.push(date);
       this.tempArray.push(data.val().Temp);
