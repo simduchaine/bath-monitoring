@@ -5,16 +5,13 @@ import Login from "./views/Login.vue";
 import SignUp from "./views/Signup.vue";
 import headerBar from "@/components/header.vue";
 import sidebar from "./components/sidebar.vue";
+import Firebase from "firebase";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
-    {
-      path: "*",
-      redirect: "/login"
-    },
     {
       path: "/",
       redirect: "/login"
@@ -40,7 +37,21 @@ export default new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });
 
+router.beforeEach((to, from, next) => {
+  const currentUser = Firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) next("/login");
+  else if (!requiresAuth && currentUser) next("/dashboard");
+  else next();
+});
+
+export default router;

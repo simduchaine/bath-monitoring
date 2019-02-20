@@ -49,6 +49,10 @@ export default {
             .icon {
                 padding-right: 0.5em;
             }
+
+            &:hover {
+                color: $white;
+            }
         }
     }
     

@@ -35,13 +35,8 @@ export default {
     methods: {
         SignUp() {
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-            .then(() => {
-                this.flash('Account Created!', 'success', {
-                    timeout: 2000
-                });
-                setTimeout(() => {
-                    this.$router.replace("/login")
-                }, 2000);
+            .then((user) => {
+               this.$router.replace("/dashboard")
             })
             .catch( error => {
                 // The creation failed...

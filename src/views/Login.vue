@@ -35,7 +35,7 @@ export default {
         login() {
             firebase.auth().signInWithEmailAndPassword(this.email, this.password)
             .then((user)=> {
-                this.$router.replace("Dashboard");
+                this.$router.replace("/dashboard");
             })
             .catch(error => {
                 // The creation failed...

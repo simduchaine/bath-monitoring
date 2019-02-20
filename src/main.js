@@ -21,7 +21,6 @@ import Firebase from "firebase";
 //-- See https://firebase.google.com/docs/web/setup
 import config from "./firebase";
 
-let app = "";
 
 const fb = Firebase.initializeApp(config);
 const database = fb.database();
@@ -43,21 +42,17 @@ Vue.use(VueFlashMessage);
 
 Vue.config.productionTip = false;
 
-router.beforeEach((to, from, next) => {
-  const currentUser = Firebase.auth().currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-  if (requiresAuth && !currentUser) next("/login");
-  else if (!requiresAuth && currentUser) next("/dashboard");
-  else next();
-});
-
-Firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount("#app");
-  }
-});
+new Vue({
+  router,
+  created() {
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$router.replace("/dashboard");
+      } else {
+        this.$router.replace("/login");
+      }
+    });
+  },
+  store,
+  render: h => h(App)
+}).$mount("#app");
