@@ -42,17 +42,24 @@ Vue.use(VueFlashMessage);
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  created() {
-    Firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.$router.replace("/dashboard");
-      } else {
-        this.$router.replace("/login");
-      }
-    });
-  },
-  store,
-  render: h => h(App)
-}).$mount("#app");
+//handle page reload
+let app;
+Firebase.auth().onAuthStateChanged(user => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+});
+
+/* created() {
+  Firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      this.$router.replace("/dashboard");
+    } else {
+      this.$router.replace("/login");
+    }
+  });
+} */
