@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <font-awesome-icon icon="bell" class="icon" id="bell" />
-        <avatar :fullname="userName" size="34" color="#727180"></avatar>
+        <avatar :fullname="userName" :size=34 color="#727180"></avatar>
         <h3>Hello <span class="username">{{ userName }}</span></h3><font-awesome-icon icon="chevron-down" class="icon" id="chevron"/>
     </div>
 </template>

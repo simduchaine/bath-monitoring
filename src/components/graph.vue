@@ -1,7 +1,7 @@
 <template>
     <div id="graph" class="card">
         <span class="cardTitle">{{ title }}</span>
-        <chart v-if="loaded" style="height:80%; width: 95%; padding: 1em;" :chart-data="datacollection" :options="options"></chart>
+        <chart class="chart" v-if="loaded" :chart-data="datacollection" :options="options"></chart>
     </div>
 </template>
 
@@ -92,6 +92,13 @@ export default {
     #graph {
         grid-area: first;
         flex-flow: column;
+
+        .chart {
+            height:80%; 
+            width: 95%; 
+            padding: 1em; 
+            position: relative;
+        }
     }
     
 </style>

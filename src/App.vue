@@ -25,6 +25,14 @@ export default {
     color: $white;
 }
 
+body {
+  background: linear-gradient(125.42deg, #9095AD 0%, #595D6E 100%); 
+  height: 98vh; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center;
+}
+
 #app {
   font-family: $font;
   font-size: 15px;
@@ -86,6 +94,110 @@ button {
   &:focus {
     outline: none;
   }
+}
+
+/* Media Queries */
+/* Small screens - MOBILE */
+
+@media only screen and (max-width: 40em) {
+
+  body {
+    height: auto;
+  }
+
+  .login-page {
+    height: 97vh;
+  }
+  
+  #app {
+    width: 98%;
+    height: 98%;
+    grid-template-areas: 
+      "header" 
+      "sidebar" 
+      "main";
+    grid-template-columns: none;
+    grid-template-rows: none;
+    font-size: smaller;
+  }
+
+  .form {
+    width: 75%;
+  }
+
+  #header {
+    h3 {
+      display: none;
+    }
+  }
+
+  #nav {
+    margin: 0.5em 0 2em 0.5em;
+
+    a {
+      margin: 0 auto;
+    }
+
+    #navbar {
+      padding-top: 0;
+    }
+
+    #logout {
+      position: absolute;
+      top: 25px;
+      height: 20px;
+    }
+
+    .status, #logout {
+      bottom: 0;
+      padding: 0.6em 1.2em;
+    }
+
+    .status {
+      position: relative;
+      order: -1;
+    }
+
+  }
+
+  #dashboard {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .cardTitle {
+    padding-bottom: 1em !important;
+    display: block;
+  }
+
+  .chart {
+    width: 85vw !important;
+    height: 50vh !important;
+    padding: 0 !important;
+  }
+
+  .card {
+    display: block !important;
+    margin: 0.5em;
+  }
+
+  .circle-slider {
+    margin: 0 auto;
+    position: relative !important;
+    transform: none !important;
+    top: 0 !important;
+    left: 0 !important;
+
+  }
+
+  .setPoint {
+    button {
+      margin-bottom: 1em;
+    }
+  }
+
+
 }
 
 </style>
