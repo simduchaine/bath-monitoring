@@ -5,7 +5,7 @@
             <form class="login-form">
             <input type="email" v-model="email" placeholder="Email"/>
             <input type="password" v-model="password" placeholder="Password"/>
-            <button class="btn" @click="login">login</button>
+            <button class="btn" @click.prevent="login">login</button>
             <p>Not registered? <router-link to="/sign-up">Create an account</router-link></p>
             </form>
             <flash-message></flash-message>

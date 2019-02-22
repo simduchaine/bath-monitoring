@@ -92,8 +92,8 @@ export default {
     "second third";
   grid-row-gap: 1.2em;
   grid-column-gap: 1.5em;
-  width: 85%;
-  padding: 0 0 2.5em;
+  width: 80%;
+  padding: 0 4em 2.5em;
 }
 
 .card {
@@ -109,6 +109,7 @@ export default {
 .cardTitle {
   align-self: flex-start;
   padding: 1.5em 0 0 1.5em;
+  font-size: 13px;
 }
 
 .actualData,

@@ -17,6 +17,7 @@
     "npm": "^6.7.0",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.22",
+    "vue-avatar-component": "^1.2.4",
     "vue-chartjs": "^3.4.0",
     "vue-circle-slider": "^1.0.2",
     "vue-flash-message": "^0.7.2",

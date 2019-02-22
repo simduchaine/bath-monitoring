@@ -59,14 +59,24 @@ export default {
                     {
                         id: "y1",
                         type: "linear",
-                        position: "left"
+                        position: "left",
+                        gridLines: {
+                            color: "#7271801c"
+                        }
                     },
                     {
                         id: "y2",
                         type: "linear",
                         position: "right",
                         gridLines: {
-                        display: false
+                            display: false
+                        }
+                    }
+                    ],
+                    xAxes: [
+                    {
+                        gridLines: {
+                            color: "#7271801c"
                         }
                     }
                     ]

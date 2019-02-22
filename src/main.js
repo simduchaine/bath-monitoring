@@ -10,7 +10,9 @@ import {
   faCogs,
   faSnowflake,
   faThermometerHalf,
-  faPowerOff
+  faPowerOff,
+  faChevronDown,
+  faBell
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueCircleSlider from "vue-circle-slider";
@@ -20,7 +22,6 @@ import Firebase from "firebase";
 //and database url and all the private config
 //-- See https://firebase.google.com/docs/web/setup
 import config from "./firebase";
-
 
 const fb = Firebase.initializeApp(config);
 const database = fb.database();
@@ -32,7 +33,9 @@ library.add(
   faCogs,
   faSnowflake,
   faThermometerHalf,
-  faPowerOff
+  faPowerOff,
+  faChevronDown,
+  faBell
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -53,13 +56,3 @@ Firebase.auth().onAuthStateChanged(user => {
     }).$mount("#app");
   }
 });
-
-/* created() {
-  Firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      this.$router.replace("/dashboard");
-    } else {
-      this.$router.replace("/login");
-    }
-  });
-} */
