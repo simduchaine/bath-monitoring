@@ -21,7 +21,7 @@ export default {
     },
     created() {
         dbData.on('value', (snapshot) => {
-            this.isHumidifierFull = snapshot.child("arduinoData/DehumifierFull").val();
+            this.isHumidifierFull = snapshot.child("arduinoData/DehumidifierFull").val();
             this.isDehumidifierEmpty = snapshot.child("arduinoData/HumidifierEmpty").val();
         });
     }
