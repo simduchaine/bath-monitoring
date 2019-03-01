@@ -43,9 +43,9 @@ export default {
       this.getTempSetPoint = snapshot.child("arduinoData/tempSetpoint").val();
       this.getHumidSetPoint = snapshot.child("arduinoData/humiditySetpoint").val();
     }); 
-    dbData.child("dataOverTime").on("child_added", (data) => { //database.ref("dataOverTime")
-      let date = moment(data.val().timestamp).format('L');
-      this.labels.push(date);
+    dbData.child("dataOverTime").limitToLast(50).on("child_added", (data) => { //database.ref("dataOverTime")
+      //let date = moment(data.val().timestamp).format('L');
+      this.labels.push(data.val().timestamp);
       this.tempArray.push(data.val().Temp);
       this.humidArray.push(data.val().Humidity);
       this.loaded = true;

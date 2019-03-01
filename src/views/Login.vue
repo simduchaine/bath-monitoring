@@ -7,6 +7,7 @@
             <input type="password" v-model="password" placeholder="Password"/>
             <button class="btn" @click.prevent="login">login</button>
             <p>Not registered? <router-link to="/sign-up">Create an account</router-link></p>
+            <p>Forgot password? <router-link to="/reset-password">Reset your password</router-link></p>
             </form>
             <flash-message></flash-message>
         </div>

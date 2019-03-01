@@ -2,6 +2,7 @@ import { Line, mixins } from "vue-chartjs";
 
 Chart.defaults.global.defaultFontColor = "#727180";
 Chart.defaults.global.defaultFontFamily = "Chivo";
+Chart.defaults.global.hover.intersect = false;
 //Chart.defaults.global.legend.labels.usePointStyle = true;
 
 export default {

@@ -36,7 +36,8 @@ export default {
                     backgroundColor: "#8864CE",
                     fill: false,
                     data: this.humidArray,
-                    yAxisID: "y1"
+                    yAxisID: "y1",
+                    pointRadius: 0
                     },
                     {
                     label: "Temperature (°C)",
@@ -44,7 +45,8 @@ export default {
                     backgroundColor: "#3B81BC",
                     fill: false,
                     data: this.tempArray,
-                    yAxisID: "y2"
+                    yAxisID: "y2",
+                    pointRadius: 0
                     }
                 ]
             }
@@ -75,6 +77,14 @@ export default {
                     ],
                     xAxes: [
                     {
+                        type: "time",
+                        time: {
+                            unit: 'minute'
+                        },
+                        ticks: {
+                            //autoSkip: true,
+                            //maxTicksLimit: 10
+                        },
                         gridLines: {
                             color: "#7271801c"
                         }

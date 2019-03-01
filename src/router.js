@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Dashboard from "./views/Dashboard.vue";
 import Login from "./views/Login.vue";
 import SignUp from "./views/Signup.vue";
+import ResetPassword from "./views/ResetPassword.vue";
 import headerBar from "@/components/header.vue";
 import sidebar from "./components/sidebar.vue";
 import Firebase from "firebase";
@@ -25,6 +26,11 @@ const router = new Router({
       path: "/sign-up",
       name: "sign-up",
       component: SignUp
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: ResetPassword
     },
     {
       path: "/dashboard",

@@ -64,7 +64,7 @@ a {
   text-decoration: none;
 }
 
-.router-link-exact-active {
+.router-link-exact-active, .router-link-active {
     a {
         @extend %active-hover-color;
     }
