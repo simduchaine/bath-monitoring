@@ -1,10 +1,10 @@
 <template>
     <div class="status">
         <div>
-            <span :class="{green: isDehumidifierEmpty}"></span><p>DEHUMIDIFIER STATUS</p>  
+            <span :class="{red: isDehumidifierEmpty}"></span><p>DEHUMIDIFIER STATUS</p>  
         </div>
         <div>
-            <span :class="{green: isHumidifierFull}"></span><p>HUMIDIFIER STATUS</p>
+            <span :class="{red: isHumidifierFull}"></span><p>HUMIDIFIER STATUS</p>
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     span {
         height: 15px;
         width: 15px;
-        background-color: #FE6D84;
+        background-color: #378830;
         border-radius: 50%;
         margin-right: 0.5em;
     }
@@ -50,8 +50,8 @@ export default {
         margin: 0.4em 0;
     }
 
-    .green {
-        background-color: #378830;
+    .red {
+        background-color: #FE6D84;
     }
 }
     

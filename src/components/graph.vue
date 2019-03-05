@@ -1,18 +1,21 @@
 <template>
     <div id="graph" class="card">
         <span class="cardTitle">{{ title }}</span>
+        <datepicker></datepicker>
         <chart class="chart" v-if="loaded" :chart-data="datacollection" :options="options"></chart>
     </div>
 </template>
 
 <script>
 import chart from "./linechart.js";
+import Datepicker from 'vuejs-datepicker';
 
 export default {
     name: "lineChart",
     props: ["title", "labels", "tempArray", "humidArray", "loaded"],
     components: {
-        chart
+        chart,
+        Datepicker
     },
     data() {
         return {
@@ -79,7 +82,7 @@ export default {
                     {
                         type: "time",
                         time: {
-                            unit: 'minute'
+                            //unit: 'minute'
                         },
                         ticks: {
                             //autoSkip: true,
